@@ -1,0 +1,17 @@
+
+
+
+
+@media (max-width: 768px){
+    section{
+        grid-template-columns: 1fr;
+    }
+    
+}
+
+
+@media (min-width : 769px){
+    section{
+        grid-template-columns: 1fr 1fr;
+    }
+}
