@@ -1,40 +1,78 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BusDirect</title>
-</head>
-<body>
-
-<header>
-    <div class="w-full h-20 bg-[#ADCBBA] flex items-center">
-        <img src="pixels/logo.png" alt="logo" class="w-20 h-auto">
-        <h1 class="text-2xl font-bold italic flex items-center ml-5">BusDirect</h1>
-        <div class="ml-360 bg-[#C35627]">
-            <select class="border rounded-lg p-2">
-                <option value="compte">Compte</option>
-                <option value="option">Option</option>
-                <option value="deconnexion">Déconnexion</option>
-            </select>
-        </div>
-        <img src="pixels/PFP.png" alt="pfp" class="w-12 h-auto pl-3">
-    </div>
-</header>
-<main>
-    <section>
-        <h2>Tout les trajets</h2>
-        <div id="trajets">
-
-</div>
-    </section>
-    <a href="cabine.html">Voir la cabine</a>
-    <form>
-    <input type="text" id="search" placeholder="Rechercher un trajet...">
     
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>BusDirect</title>
+
+</head>
+<body class="bg-[#C35627]">
+<header>
+ <div class="w-full h-20 bg-[#ADCBBA] flex items-center px-4 shadow-md">
+   
+    <img src="pixels/logo.png" alt="logo" class="w-20 h-auto">
+     <h1 class=" text-2xl font-bold italic flex items-center ml-5">BusDirect</h1>
+   <div class="ml-auto flex items-center gap-3 mr-4">
+    <select class="border rounded-lg p-2">
+        <option value="compte">Compte</option>
+        <option value="option">Option</option>
+        <option value="deconnexion">Déconnexion</option>
+    </select>
+</div>
+<img src="pixels/PFP.png" alt="pfp" class="w-12 h-auto pl-3">
+ </div>
+
+</header>
+<section>
+   <div class="bg-[#CCDCDB] flex flex-col md:flex-row justify-around items-center gap-4 p-6">
+
+    <h1 class="text-2xl font-black text-[#C35627]">
+        Tout les trajets
+    </h1>
+
+   <div class="bg-white border border-[#ADCBBA] rounded-xl p-5 shadow-sm">
+    <p class="font-bold">Recette : 7380 DH</p>
+  
+    </div>
+    <div class="bg-white border border-[#ADCBBA] rounded-xl p-5 shadow-sm">
+      <p class="font-bold">Nombre des trajets : 20</p>
+    </div>
+    <div class="bg-white border border-[#ADCBBA] rounded-xl p-5 shadow-sm">
+     <p class="font-bold">Sièges disponibles : 173</p>
+    </div>
+</div>
+<div class="bg-[#CCDCDB] flex flex-col md:flex-row items-center justify-center gap-4 p-5 mx-4 rounded-2xl w-full shadow-md" id="filter">
+    <p class="font-black text-xl text-[#C35627] text-center">filtrer les trajets :</p>
+    <select class="border-2 border-[#C35627] rounded-xl p-3 text-lg bg-white shadow-sm w-full md:w-auto">
+    <option value="tout les trajets">Tout les trajets</option>
+    <option value="disponible">Disponible</option>
+    <option value="occupé" >Occupée</option>
+    </select>
+</div>
+    <form>
+        <div class="flex flex-col items-center justify-center gap-3 m-4 p-4">
+<label for="search" class="text-xl font-bold text-white p-2">Rechercher votre trajet</label>
+<input type="search" class="border-2 border-[#ADCBBA] rounded-xl bg-white h-11 w-full max-w-xl px-4 outline-none focus:border-[#C35627] focus:ring-2 focus:ring-[#C35627]/20" id="search" name="search" placeholder="Rechercher...">
+<button type="submit" class="bg-[#C35627] text-white font-bold rounded-xl px-8 py-2 hover:bg-[#A94720] transition shadow-md">
+    Search
+</button>
 </form>
-</main>
+</div>
+
+<div id="trajets" class="w-full grid grid-cols-3 gap-4 p-4"></div>
+<div id="pagination" class="flex justify-center gap-3 p-4"></div>
+
+
+</section>
+
 <script type="module" src="js/main-trajets.js"></script>
+<script type="module" src="store.js"></script>
+<script type="module" src="validation.js"></script>
+<script type="module" src ="render.js"></script>
+<script type="module" src="reservation.js"></script>
+<script type="module"  src="main-trajets.js"></script>
+<script  type="module" src="main-cabine.js"></script>
 </body>
 </html>
