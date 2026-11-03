@@ -3,85 +3,195 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BusDirect - Cabine</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>BusDirect</title>
+
 </head>
-<body>
+<body class="bg-[#C35627]">
 <header>
-    <h1>La Cabine</h1>
+ <div class="w-full min-h-20 bg-[#ADCBBA] flex items-center  ">
+   
+    <img src="pixels/logo.png" alt="logo" class="w-20 h-auto">
+     <h1 class=" text-2xl font-bold italic flex items-center ">BusDirect</h1>
+   <div class="flex items-center ml-360 l-top gap-2 bg-[#D3C0B2]">
+    <select class="border rounded-lg p-2">
+        <option value="compte">Compte</option>
+        <option value="option">Option</option>
+        <option value="deconnexion">Déconnexion</option>
+    </select>
+</div>
+<img src="pixels/PFP.png" alt="pfp" class="w-12 h-auto pl-3">
+ </div>
+
 </header>
-<main>
-    <div id="board">
-        <div id="siege-1"></div>
-        <div id="siege-2"></div>
-        <div id="siege-3"></div>
-        <div id="siege-4"></div>
-        <div id="siege-5"></div>
-        <div id="siege-6"></div>
-        <div id="siege-7"></div>
-        <div id="siege-8"></div>
-        <div id="siege-9"></div>
-        <div id="siege-10"></div>
-        <div id="siege-11"></div>
-        <div id="siege-12"></div>
-        <div id="siege-13"></div>
-        <div id="siege-14"></div>
-        <div id="siege-15"></div>
-        <div id="siege-16"></div>
-        <div id="siege-17"></div>
-        <div id="siege-18"></div>
-        <div id="siege-19"></div>
-        <div id="siege-20"></div>
+<div id="wayTrajet" class="font-bold text-2xl bg-[#CCDCDB] justify-center"></div>
+<section class="grid grid-cols-1 lg:grid-cols-2 p-3 gap-3">
+    
+  <div>
+    <h1 class="text-2xl font-extrabold">La Cabine</h1>
+
+    <div class="grid grid-cols-2 gap-3 bg-[#D3C0B2] text-center mt-4 mb-4 p-4 h-auto justify-items-center border-2 rounded-3xl">
+
+        <div id="siege-1" class="bg-[#BAC8B1] rounded-2xl border-4 h-12 w-full ">Siège 1</div>
+        <div id="siege-2" class="bg-[#BAC8B1] rounded-2xl  border-4 h-12 w-full">Siège 2</div>
+        <div id="siege-3" class="bg-[#BAC8B1] rounded-2xl border-4 h-12 w-full">Siège 3</div>
+        <div id="siege-4" class="bg-[#BAC8B1] rounded-2xl border-4 h-12 w-full">Siège 4</div>
+        <div id="siege-5" class="bg-[#BAC8B1] rounded-2xl border-4 h-12 w-full">Siège 5</div>
+        <div id="siege-6" class="bg-[#BAC8B1] rounded-2xl border-4 h-12 w-full">Siège 6</div>
+        <div id="siege-7" class="bg-[#BAC8B1] rounded-2xl border-4 h-12 w-full">Siège 7</div>
+        <div id="siege-8" class="bg-[#BAC8B1] rounded-2xl border-4 h-12 w-full">Siège 8</div>
+        <div id="siege-9" class="bg-[#BAC8B1] rounded-2xl border-4 h-12 w-full">Siège 9</div>
+        <div id="siege-10" class="bg-[#BAC8B1] rounded-2xl border-4 h-12 w-full">Siège 10</div>
+        <div id="siege-11" class="bg-[#BAC8B1] rounded-2xl border-4 h-12 w-full">Siège 11</div>
+        <div id="siege-12" class="bg-[#BAC8B1] rounded-2xl border-4 h-12 w-full">Siège 12</div>
+        <div id="siege-13" class="bg-[#BAC8B1] rounded-2xl border-4 h-12 w-full">Siège 13</div>
+        <div id="siege-14" class="bg-[#BAC8B1] rounded-2xl border-4 h-12 w-full">Siège 14</div>
+        <div id="siege-15" class="bg-[#BAC8B1] rounded-2xl border-4 h-12 w-full">Siège 15</div>
+        <div id="siege-16" class="bg-[#BAC8B1] rounded-2xl border-4 h-12 w-full">Siège 16</div>
+        <div id="siege-17" class="bg-[#BAC8B1] rounded-2xl border-4 h-12 w-full">Siège 17</div>
+        <div id="siege-18" class="bg-[#BAC8B1] rounded-2xl border-4 h-12 w-full">Siège 18</div>
+        <div id="siege-19" class="bg-[#BAC8B1] rounded-2xl border-4 h-12 w-full">Siège 19</div>
+        <div id="siege-20" class="bg-[#BAC8B1] rounded-2xl border-4 h-12 w-full">Siège 20</div>
+
     </div>
-    <section>
-    <h2>Réserver un siège</h2>
+</div>
 
-    <form id="reservation-form">
-        <input
-            type="text"
-            id="name"
-            placeholder="Nom du passager"
-        >
-
-        <select id="seat-number">
-            <option value="">Choisir un siège</option>
-        </select>
-
-        <button type="submit">Réserver</button>
+<div class=" flex-col text-center m-12 gap-3 w-auto h-auto ">
+    <h1 class="text-2xl font-semibold italic p-3">Réservation</h1>
+    <div class="justify-center border-2 rounded-2xl w-auto h-auto bg-[#D3C0B2]">
+        
+        <p class=" font-medium not-italic" id="nom">Le nom complète :</p>
+    <form action="name">
+        <label for="name" class="border-2 bg-gray-300 rounded-2xl">
+            <input type="text" class="border-2 text-center p-2 w-full max-w-md bg-gray-300 rounded-2xl" placeholder="ex : Sara Benani" required>
+        </label>
     </form>
 
-    <p id="message"></p>
-</section>
-<section>
-    <h2>Modifier une réservation</h2>
-
-    <form id="edit-form">
-        <input
-            type="text"
-            id="new-name"
-            placeholder="Nouveau nom"
-        >
-
-        <select id="new-seat">
-            <option value="">Choisir un siège</option>
-        </select>
-
-        <button type="submit">Modifier</button>
+    <form action="mail" class="p-4" >
+          <p class="font-medium not-italic">Email :</p>
+        <input type="email" class="border-2 text-center p-2 w-full max-w-md bg-gray-300 rounded-2xl" placeholder="ex : sarabenani@gmail.com" required>
     </form>
-</section>
-<section>
-    <h2>Annuler une réservation</h2>
+         <p class="font-medium not-italic">Choisir un siège :</p>
+            <select id="sieges" name="sieges" class="border-2 bg-gray-300 rounded-2xl w-full max-w-md h-12 m-2 ">
+                <option value="siege-1">siege-1</option>
+                <option value="siege-2">siege-2</option>
+                <option value="siege-3">siege-3</option>
+                <option value="siege-4">siege-4</option>
+                <option value="siege-5">siege-5</option>
+                <option value="siege-6">siege-6</option>
+                <option value="siege-7">siege-7</option>
+                <option value="siege-8">siege-8</option>
+                <option value="siege-9">siege-9</option>
+                <option value="siege-10">siege-10</option>
+                <option value="siege-11">siege-11</option>
+                <option value="siege-12">siege-12</option>
+                <option value="siege-13">siege-13</option>
+                <option value="siege-14">siege-14</option>
+                <option value="siege-15">siege-15</option>
+                <option value="siege-16">siege-16</option>
+                <option value="siege-17">siege-17</option>
+                <option value="siege-18">siege-18</option>
+                <option value="siege-19">siege-19</option>
+                <option value="siege-20">siege-20</option>
+            </select>
 
-    <form id="delete-form">
-        <input
-            type="text"
-            id="passenger-delete"
-            placeholder="Nom du passager"
-        >
+            <input type="submit" value="Valide"  class="bg-amber-300 p-3  flex border-2 rounded-3xl ">
+        
+</div>
+<div class="m-3 md:m-7 flex flex-col text-center items-center">
+     <h1 class="text-2xl font-semibold italic p-3">Modification</h1>
+        <div class=" flex flex-col gap-3 bg-[#D3C0B2] text-center mt-4 mb-4 p-4 m-3 md:m-12 h-auto w-full border-2 rounded-2xl items-center">
+            <form id="form-modification" class="flex flex-col gap-3 items-center">
+            <p class="font-medium not-italic p-2">Le nouveau siège :</p>
+                <select id="sieges" name="sieges" class="border-2 items-center bg-gray-300 rounded-2xl w-full max-w-md h-12 p-2">
+                    <option value="siege-1">siege-1</option>
+                    <option value="siege-2">siege-2</option>
+                    <option value="siege-3">siege-3</option>
+                    <option value="siege-4">siege-4</option>
+                    <option value="siege-5">siege-5</option>
+                    <option value="siege-6">siege-6</option>
+                    <option value="siege-7">siege-7</option>
+                    <option value="siege-8">siege-8</option>
+                    <option value="siege-9">siege-9</option>
+                    <option value="siege-10">siege-10</option>
+                    <option value="siege-11">siege-11</option>
+                    <option value="siege-12">siege-12</option>
+                    <option value="siege-13">siege-13</option>
+                    <option value="siege-14">siege-14</option>
+                    <option value="siege-15">siege-15</option>
+                    <option value="siege-16">siege-16</option>
+                    <option value="siege-17">siege-17</option>
+                    <option value="siege-18">siege-18</option>
+                    <option value="siege-19">siege-19</option>
+                    <option value="siege-20">siege-20</option>
+                </select>
+            </form>
+        <p class="font-medium not-italic p-2.5 m-1.5">Le nouveau nom :</p>
+           <form id="form-reservation">
+                <label for="name" class="border-2 bg-gray-300 rounded-2xl">
+                    <input type="text" class="border-2 text-center p-2 w-full max-w-md bg-gray-300 rounded-2xl" placeholder="ex : Sara Benani" required>
+                
+                    <input type="submit" value="Validé "  class="bg-amber-300 p-3 border-2 flex  rounded-3xl ">
+             </form>
+                </label>
+            
+        </div>
+</div>
 
-        <button type="submit">Annuler</button>
-    </form>
+<div class="m-7 flex-col text-center align-middle  ">
+     <h1 class="text-2xl font-semibold italic p-3">suppression</h1>
+       <div class=" flex flex-col gap-3 bg-[#D3C0B2] text-center mt-4 mb-4 p-4 h-auto  m-3 md:m-7  w-full border-2 rounded-2xl items-center">
+            <p class="font-medium not-italic p-2">Votre siège :</p>
+                <select id="sieges" name="sieges" class="border-2 items-center bg-gray-300 rounded-2xl w-full max-w-md h-auto  p-2">
+                    <option value="siege-1">siege-1</option>
+                    <option value="siege-2">siege-2</option>
+                    <option value="siege-3">siege-3</option>
+                    <option value="siege-4">siege-4</option>
+                    <option value="siege-5">siege-5</option>
+                    <option value="siege-6">siege-6</option>
+                    <option value="siege-7">siege-7</option>
+                    <option value="siege-8">siege-8</option>
+                    <option value="siege-9">siege-9</option>
+                    <option value="siege-10">siege-10</option>
+                    <option value="siege-11">siege-11</option>
+                    <option value="siege-12">siege-12</option>
+                    <option value="siege-13">siege-13</option>
+                    <option value="siege-14">siege-14</option>
+                    <option value="siege-15">siege-15</option>
+                    <option value="siege-16">siege-16</option>
+                    <option value="siege-17">siege-17</option>
+                    <option value="siege-18">siege-18</option>
+                    <option value="siege-19">siege-19</option>
+                    <option value="siege-20">siege-20</option>
+                </select>
+            
+        <p class="font-medium not-italic p-2.5 m-1.5">Votre nom :</p>
+            <form action="name">
+                <label for="name" class="border-2 bg-gray-300 rounded-2xl">
+                    <input type="text" class="border-2 text-center p-2 w-full max-w-md bg-gray-300 rounded-2xl" placeholder="ex : Sara Benani" required>
+                
+                    <input type="submit" value="Validé "  class="bg-amber-300 p-3 border-2 flex  rounded-3xl ">
+                </label>
+            </form>
+        </div>
+</div>
+
+
+
 </section>
-</main>
-<script type="module" src="js/main-cabine.js"></script>
+<footer class="w-full  h-20 bg-[#ADCBBA] flex items-center top-full">
+     
+</footer>
+
+
+
+
+<script type="module" src="js/store.js"></script>
+<script type="module" src="js/validators.js"></script>
+<script type="module" src ="js/render.js"></script>
+<script type="module" src="js/reservations.js"></script>
+<script type="module"  src="js/main-trajets.js"></script>
+<script  type="module" src="js/main-cabine.js"></script>
 </body>
 </html>
