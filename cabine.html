@@ -33,10 +33,10 @@
 
     <div class="grid grid-cols-2 gap-3 bg-[#D3C0B2] text-center mt-4 mb-4 p-4 h-auto justify-items-center border-2 rounded-3xl">
 
-        <div id="siege-1" class="bg-[#BAC8B1] rounded-2xl border-4 h-12 w-full ">Siège 1</div>
-        <div id="siege-2" class="bg-[#BAC8B1] rounded-2xl  border-4 h-12 w-full">Siège 2</div>
-        <div id="siege-3" class="bg-[#BAC8B1] rounded-2xl border-4 h-12 w-full">Siège 3</div>
-        <div id="siege-4" class="bg-[#BAC8B1] rounded-2xl border-4 h-12 w-full">Siège 4</div>
+        <div id="siege-1" class="bg-red-500 rounded-2xl border-4 h-12 w-full italic">Siège 1 VIP</div>
+        <div id="siege-2" class="bg-red-500 rounded-2xl  border-4 h-12 w-full italic">Siège 2 VIP</div>
+        <div id="siege-3" class="bg-red-500 rounded-2xl border-4 h-12 w-full italic">Siège 3 VIP</div>
+        <div id="siege-4" class="bg-red-500 rounded-2xl border-4 h-12 w-full italic">Siège 4 VIP</div>
         <div id="siege-5" class="bg-[#BAC8B1] rounded-2xl border-4 h-12 w-full">Siège 5</div>
         <div id="siege-6" class="bg-[#BAC8B1] rounded-2xl border-4 h-12 w-full">Siège 6</div>
         <div id="siege-7" class="bg-[#BAC8B1] rounded-2xl border-4 h-12 w-full">Siège 7</div>
@@ -64,7 +64,7 @@
         <p class=" font-medium not-italic" id="nom">Le nom complète :</p>
     <form action="name">
         <label for="name" class="border-2 bg-gray-300 rounded-2xl">
-            <input type="text" class="border-2 text-center p-2 w-full max-w-md bg-gray-300 rounded-2xl" placeholder="ex : Sara Benani" required>
+            <input type="text" id="nomReservation" class="border-2 text-center p-2 w-full max-w-md bg-gray-300 rounded-2xl" placeholder="ex : Sara Benani" required>
         </label>
     </form>
 
@@ -96,8 +96,8 @@
                 <option value="siege-20">siege-20</option>
             </select>
 
-            <input type="submit" value="Valide"  class="bg-amber-300 p-3  flex border-2 rounded-3xl ">
-        
+            <input type="submit" value="Valide" id="btnRéserver"  class="bg-amber-300 p-3  flex border-2 rounded-3xl ">
+        <div id="messageAffiche" class=" hidden "></div>
 </div>
 <div class="m-3 md:m-7 flex flex-col text-center items-center">
      <h1 class="text-2xl font-semibold italic p-3">Modification</h1>
@@ -132,7 +132,7 @@
                 <label for="name" class="border-2 bg-gray-300 rounded-2xl">
                     <input type="text" class="border-2 text-center p-2 w-full max-w-md bg-gray-300 rounded-2xl" placeholder="ex : Sara Benani" required>
                 
-                    <input type="submit" value="Validé "  class="bg-amber-300 p-3 border-2 flex  rounded-3xl ">
+                    <input type="submit" value="Validé " id="btnModifier" class="bg-amber-300 p-3 border-2 flex  rounded-3xl ">
              </form>
                 </label>
             
@@ -171,7 +171,7 @@
                 <label for="name" class="border-2 bg-gray-300 rounded-2xl">
                     <input type="text" class="border-2 text-center p-2 w-full max-w-md bg-gray-300 rounded-2xl" placeholder="ex : Sara Benani" required>
                 
-                    <input type="submit" value="Validé "  class="bg-amber-300 p-3 border-2 flex  rounded-3xl ">
+                    <input type="submit" value="Validé " id="btnSupprimer" class="bg-amber-300 p-3 border-2 flex  rounded-3xl ">
                 </label>
             </form>
         </div>
@@ -180,6 +180,8 @@
 
 
 </section>
+
+
 <footer class="w-full  h-20 bg-[#ADCBBA] flex items-center top-full">
      
 </footer>
@@ -191,7 +193,7 @@
 <script type="module" src="js/validators.js"></script>
 <script type="module" src ="js/render.js"></script>
 <script type="module" src="js/reservations.js"></script>
-<script type="module"  src="js/main-trajets.js"></script>
+
 <script  type="module" src="js/main-cabine.js"></script>
 </body>
 </html>
