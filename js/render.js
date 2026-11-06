@@ -67,3 +67,18 @@ export function planBus(trip) {
 
     return html;
 }
+
+export function optionsSieges(trip, siegeInclus = null) {
+    const occupes = trip.reservations.map((r) => r.seat);
+    let options = "";
+
+    for (let numero = 1; numero <= trip.capacity; numero++) {
+        if (occupes.includes(numero) && numero !== siegeInclus) continue;
+
+        const num = String(numero).padStart(2, "0");
+        const type = estVIP(numero) ? "VIP " : "";
+        options += `<option value="${numero}">Siège ${num} — ${type}${prixSiege(trip.price, numero)} DH</option>`;
+    }
+
+    return options;
+}
