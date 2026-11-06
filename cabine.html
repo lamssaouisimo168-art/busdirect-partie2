@@ -1,387 +1,130 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <title>BusDirect</title>
-
-</head>
-<body class="bg-[#C35627]">
-<header>
- <div class="w-full min-h-20 bg-[#ADCBBA] flex items-center  ">
-   
-    <img src="pixels/logo.png" alt="logo" class="w-20 h-auto">
-     <h1 class=" text-2xl font-bold italic flex items-center ">BusDirect</h1>
-   <div class="flex items-center ml-360 l-top gap-2 bg-[#D3C0B2]">
-    <select class="border rounded-lg p-2">
-        <option value="compte">Compte</option>
-        <option value="option">Option</option>
-        <option value="deconnexion">Déconnexion</option>
-    </select>
-</div>
-<img src="pixels/PFP.png" alt="pfp" class="w-12 h-auto pl-3">
- </div>
-
-</header>
-<div id="wayTrajet" class="font-bold text-2xl bg-[#CCDCDB] justify-center"></div>
-<section class="grid grid-cols-1 lg:grid-cols-2 p-3 gap-3">
-    
-  <div>
-    <h1 class="text-2xl font-extrabold">La Cabine</h1>
-
-    <div class="grid grid-cols-2 gap-3 bg-[#D3C0B2] text-center mt-4 mb-4 p-4 h-auto justify-items-center border-2 rounded-3xl">
-
-        <div id="siege-1" class="bg-red-500 rounded-2xl border-4 h-12 w-full italic">
-            <i class="fa-solid fa-crown" style="color: rgb(170, 140, 49);"> Siège 1 VIP</i>
-           </div>
-        <div id="siege-2" class="bg-red-500 rounded-2xl  border-4 h-12 w-full italic">
-            <i class="fa-solid fa-crown" style="color: rgb(179, 149, 49);"> Siège 2 VIP</i>
-           </div>
-        <div id="siege-3" class="bg-red-500 rounded-2xl border-4 h-12 w-full italic">
-            <i class="fa-solid fa-crown" style="color: rgb(161, 137, 29);"> Siège 3 VIP</i>
-           </div>
-        <div id="siege-4" class="bg-red-500 rounded-2xl border-4 h-12 w-full italic">
-            <i class="fa-solid fa-crown" style="color: rgb(180, 135, 31);">Siège 4 VIP</i>
-            </div>
-        <div id="siege-5" class="bg-[#BAC8B1] rounded-2xl border-4 h-12 w-full">Siège 5</div>
-        <div id="siege-6" class="bg-[#BAC8B1] rounded-2xl border-4 h-12 w-full">Siège 6</div>
-        <div id="siege-7" class="bg-[#BAC8B1] rounded-2xl border-4 h-12 w-full">Siège 7</div>
-        <div id="siege-8" class="bg-[#BAC8B1] rounded-2xl border-4 h-12 w-full">Siège 8</div>
-        <div id="siege-9" class="bg-[#BAC8B1] rounded-2xl border-4 h-12 w-full">Siège 9</div>
-        <div id="siege-10" class="bg-[#BAC8B1] rounded-2xl border-4 h-12 w-full">Siège 10</div>
-        <div id="siege-11" class="bg-[#BAC8B1] rounded-2xl border-4 h-12 w-full">Siège 11</div>
-        <div id="siege-12" class="bg-[#BAC8B1] rounded-2xl border-4 h-12 w-full">Siège 12</div>
-        <div id="siege-13" class="bg-[#BAC8B1] rounded-2xl border-4 h-12 w-full">Siège 13</div>
-        <div id="siege-14" class="bg-[#BAC8B1] rounded-2xl border-4 h-12 w-full">Siège 14</div>
-        <div id="siege-15" class="bg-[#BAC8B1] rounded-2xl border-4 h-12 w-full">Siège 15</div>
-        <div id="siege-16" class="bg-[#BAC8B1] rounded-2xl border-4 h-12 w-full">Siège 16</div>
-        <div id="siege-17" class="bg-[#BAC8B1] rounded-2xl border-4 h-12 w-full">Siège 17</div>
-        <div id="siege-18" class="bg-[#BAC8B1] rounded-2xl border-4 h-12 w-full">Siège 18</div>
-        <div id="siege-19" class="bg-[#BAC8B1] rounded-2xl border-4 h-12 w-full">Siège 19</div>
-        <div id="siege-20" class="bg-[#BAC8B1] rounded-2xl border-4 h-12 w-full">Siège 20</div>
-
-    </div>
-</div>
-
-<div class=" flex-col text-center m-12 gap-3 w-auto h-auto ">
-    <h1 class="text-2xl font-semibold italic p-3">Réservation</h1>
-    <div class="justify-center border-2 rounded-2xl w-auto h-auto bg-[#D3C0B2]">
-        
-        <p class=" font-medium not-italic" id="nom">Le nom complète :</p>
-    <form action="form-reservation">
-        <label for="name" class="border-2 bg-gray-300 rounded-2xl">
-            <input type="text" id="nomReservation" class="border-2 text-center p-2 w-full max-w-md bg-gray-300 rounded-2xl" placeholder="ex : Sara Benani" required>
-        </label>
-    </form>
-
-    <form action="mail" class="p-4" >
-          <p class="font-medium not-italic">Email :</p>
-            <input type="email" id="email" class="border-2 text-center p-2 w-full max-w-md bg-gray-300 rounded-2xl" placeholder="ex : sarabenani@gmail.com" required>
-    </form>
-         <p class="font-medium not-italic">Choisir un siège :</p>
-            <select id="siegeReservation" name="siegeReservation" class="border-2 bg-gray-300 rounded-2xl w-full max-w-md h-12 m-2">
-                <option value="siege-1">siege-1</option>
-                <option value="siege-2">siege-2</option>
-                <option value="siege-3">siege-3</option>
-                <option value="siege-4">siege-4</option>
-                <option value="siege-5">siege-5</option>
-                <option value="siege-6">siege-6</option>
-                <option value="siege-7">siege-7</option>
-                <option value="siege-8">siege-8</option>
-                <option value="siege-9">siege-9</option>
-                <option value="siege-10">siege-10</option>
-                <option value="siege-11">siege-11</option>
-                <option value="siege-12">siege-12</option>
-                <option value="siege-13">siege-13</option>
-                <option value="siege-14">siege-14</option>
-                <option value="siege-15">siege-15</option>
-                <option value="siege-16">siege-16</option>
-                <option value="siege-17">siege-17</option>
-                <option value="siege-18">siege-18</option>
-                <option value="siege-19">siege-19</option>
-                <option value="siege-20">siege-20</option>
-            </select>
-
-<input type="submit" value="Valide" id="btnReserver" class="bg-amber-300 p-3 flex border-2 rounded-3xl">        <div id="messageAffiche" class="hidden"></div>
- </form>
-</div>
-<div class="m-3 md:m-7 flex flex-col text-center items-center">
-     <h1 class="text-2xl font-semibold italic p-3">Modification</h1>
-        <div class=" flex flex-col gap-3 bg-[#D3C0B2] text-center mt-4 mb-4 p-4 m-3 md:m-12 h-auto w-full border-2 rounded-2xl items-center">
-            <form id="form-modification" class="flex flex-col gap-3 items-center">
-            <p class="font-medium not-italic p-2">Le nouveau siège :</p>
-                <select id="sieges" name="sieges" class="border-2 items-center bg-gray-300 rounded-2xl w-full max-w-md h-12 p-2">
-                    <option value="siege-1">siege-1</option>
-                    <option value="siege-2">siege-2</option>
-                    <option value="siege-3">siege-3</option>
-                    <option value="siege-4">siege-4</option>
-                    <option value="siege-5">siege-5</option>
-                    <option value="siege-6">siege-6</option>
-                    <option value="siege-7">siege-7</option>
-                    <option value="siege-8">siege-8</option>
-                    <option value="siege-9">siege-9</option>
-                    <option value="siege-10">siege-10</option>
-                    <option value="siege-11">siege-11</option>
-                    <option value="siege-12">siege-12</option>
-                    <option value="siege-13">siege-13</option>
-                    <option value="siege-14">siege-14</option>
-                    <option value="siege-15">siege-15</option>
-                    <option value="siege-16">siege-16</option>
-                    <option value="siege-17">siege-17</option>
-                    <option value="siege-18">siege-18</option>
-                    <option value="siege-19">siege-19</option>
-                    <option value="siege-20">siege-20</option>
-                </select>
-            </form>
-        <p class="font-medium not-italic p-2.5 m-1.5">Le nouveau nom :</p>
-           <form id="form-reservation">
-                <label for="name" class="border-2 bg-gray-300 rounded-2xl">
-                    <input type="text" class="border-2 text-center p-2 w-full max-w-md bg-gray-300 rounded-2xl" placeholder="ex : Sara Benani" required>
-                
-                    <input type="submit" value="Validé " id="btnModifier" class="bg-amber-300 p-3 border-2 flex  rounded-3xl ">
-             
-                </label>
-            
-        </div>
-</div>
-
-<div class="m-7 flex-col text-center align-middle  ">
-     <h1 class="text-2xl font-semibold italic p-3">suppression</h1>
-       <div class=" flex flex-col gap-3 bg-[#D3C0B2] text-center mt-4 mb-4 p-4 h-auto  m-3 md:m-7  w-full border-2 rounded-2xl items-center">
-            <p class="font-medium not-italic p-2">Votre siège :</p>
-                <select id="sieges" name="sieges" class="border-2 items-center bg-gray-300 rounded-2xl w-full max-w-md h-auto  p-2">
-                    <option value="siege-1">siege-1</option>
-                    <option value="siege-2">siege-2</option>
-                    <option value="siege-3">siege-3</option>
-                    <option value="siege-4">siege-4</option>
-                    <option value="siege-5">siege-5</option>
-                    <option value="siege-6">siege-6</option>
-                    <option value="siege-7">siege-7</option>
-                    <option value="siege-8">siege-8</option>
-                    <option value="siege-9">siege-9</option>
-                    <option value="siege-10">siege-10</option>
-                    <option value="siege-11">siege-11</option>
-                    <option value="siege-12">siege-12</option>
-                    <option value="siege-13">siege-13</option>
-                    <option value="siege-14">siege-14</option>
-                    <option value="siege-15">siege-15</option>
-                    <option value="siege-16">siege-16</option>
-                    <option value="siege-17">siege-17</option>
-                    <option value="siege-18">siege-18</option>
-                    <option value="siege-19">siege-19</option>
-                    <option value="siege-20">siege-20</option>
-                </select>
-            
-        <p class="font-medium not-italic p-2.5 m-1.5">Votre nom :</p>
-            <form action="name">
-                <label for="name" class="border-2 bg-gray-300 rounded-2xl">
-                    <input type="text" class="border-2 text-center p-2 w-full max-w-md bg-gray-300 rounded-2xl" placeholder="ex : Sara Benani" required>
-                
-                    <input type="submit" value="Validé " id="btnSupprimer" class="bg-amber-300 p-3 border-2 flex  rounded-3xl ">
-                </label>
-            </form>
-        </div>
-</div>
-
-
-
-</section>
-
-
-<footer class="w-full  h-20 bg-[#ADCBBA] flex items-center top-full">
-     
-</footer>
-
-
-
-
-<script type="module" src="js/store.js"></script>
-<script type="module" src="js/validators.js"></script>
-<script type="module" src ="js/render.js"></script>
-<script type="module" src="js/reservations.js"></script>
-
-<script  type="module" src="js/main-cabine.js"></script>
-</body>
-</html> -->
-
-
-
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BusDirect</title>
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script> 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BusDirect - Cabine</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
-<body>
-<header class="border-2 bg-gray-300 border-black rounded-2xl flex flex-wrap items-center h-auto w-full p-3 gap-3">
-  <img class="ml-1.5 w-30" src="pixels/bus.webp" alt="">
-  <h1 class=" text-3xl font-bold mt-6 ml-11">BusDirect</h1>
-<div class="flex items-center gap-3">
-  <h1 class="reservation text-xl md:text-2xl font-semibold text-blue-600">Réservation</h1>
-  <h1 class=" tickets text-2xl ml-5">tickets</h1>
-
-    <span class="flex h-4 w-4 items-center justify-center rounded-full bg-blue-100 text-xs text-blue-700">
-        3
-    </span>
-
-    <span class="flex h-7 w-7 items-center justify-center rounded-full bg-blue-800 text-white">
-        👤
-    </span>
-</div>
+<body class="bg-[#C35627]">
+<header class="w-full h-20 bg-[#ADCBBA] flex items-center px-4 shadow-md">
+    <img src="pixels/logo.png" alt="Logo BusDirect" class="w-20 h-auto">
+    <h1 class="text-2xl font-bold italic ml-5">BusDirect</h1>
 </header>
- <div class="w-full max-w-7xl h-18 mx-auto mt-4 flex items-center justify-between bg-gray-100 rounded-2xl shadow px-4 py-3">
 
-    <div class="flex items-center gap-3">
-      <i class="fa-solid fa-bus-simple" style="color: rgb(177, 151, 252);"></i>
-      <span class="font-semibold">Safi → Marrakech</span>
-      <span class="rounded-md bg-blue-100 px-2 text-xs text-blue-700">80 DH / place</span>
-    </div>
+<main class="p-4">
+    <a href="index.html" class="inline-block bg-white font-bold rounded-xl px-5 py-2 mb-4 shadow-md hover:bg-[#CCDCDB] transition">← Trajets</a>
 
-    <div class="flex items-center gap-2 text-xs">
-      <span class="rounded-full bg-gray-100 px-2">Libre</span>
-      <span class="inline-block h-3 w-3 rounded-full bg-green-500"></span>
-      <span class="rounded-full bg-red-100 px-2">Occupé</span>
-      <span class="inline-block h-3 w-3 rounded-full bg-red-500"></span>
-    </div>
-  </div>
+    <section id="infosTrajet" class="bg-[#CCDCDB] rounded-2xl p-5 mb-4 shadow-md text-center font-bold" aria-live="polite">
+        Chargement...
+    </section>
 
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-    <section class="  bg-white rounded-xl p-5 shadow-sm">
-    <h2 class="text-2xl font-bold mb-4">Plan de la cabine</h2>
-         <div id="board" class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          <div class=" seat1 border border-black-300 bg-green-400 rounded-2xl p-4 text-center font-bold" data-seat="1">Siège 1</div>
-          <div class=" seat2 border border-black-300 bg-green-400 rounded-2xl p-4 text-center font-bold" data-seat="2">Siège 2</div>
-          <div class=" seat3 border border-black-300 bg-green-400 rounded-2xl p-4 text-center font-bold" data-seat="3">Siège 3</div>
-          <div class=" seat4 border border-black-300 bg-green-400 rounded-2xl p-4 text-center font-bold" data-seat="4">Siège 4</div>
-          <div class=" seat5 border border-black-300 bg-green-400 rounded-2xl p-4 text-center font-bold" data-seat="5">Siège 5</div>
-          <div class=" seat6 border border-black-300 bg-green-400 rounded-2xl p-4 text-center font-bold" data-seat="6">Siège 6</div>
-          <div class=" seat7 border border-black-300 bg-green-400 rounded-2xl p-4 text-center font-bold" data-seat="7">Siège 7</div>
-          <div class=" seat8 border border-black-300 bg-green-400 rounded-2xl p-4 text-center font-bold" data-seat="8">Siège 8</div>
-          <div class=" seat9 border border-black-300 bg-green-400 rounded-2xl p-4 text-center font-bold" data-seat="9">Siège 9</div>
-          <div class=" seat10 border border-black-300 bg-green-400 rounded-2xl p-4 text-center font-bold" data-seat="10">Siège 10</div>
-          <div class=" seat11 border border-black-300 bg-green-400 rounded-2xl p-4 text-center font-bold" data-seat="11">Siège 11</div>
-          <div class=" seat12 border border-black-300 bg-green-400 rounded-2xl p-4 text-center font-bold" data-seat="12">Siège 12</div>
-          <div class=" seat13 border border-black-300 bg-green-400 rounded-2xl p-4 text-center font-bold" data-seat="13">Siège 13</div>
-          <div class=" seat14 border border-black-300 bg-green-400 rounded-2xl p-4 text-center font-bold" data-seat="14">Siège 14</div>
-          <div class=" seat15 border border-black-300 bg-green-400 rounded-2xl p-4 text-center font-bold" data-seat="15">Siège 15</div>
-          <div class=" seat16 border border-black-300 bg-green-400 rounded-2xl p-4 text-center font-bold" data-seat="16">Siège 16</div>
-          <div class=" seat17 border border-black-300 bg-green-400 rounded-2xl p-4 text-center font-bold" data-seat="17">Siège 17</div>
-          <div class=" seat18 border border-black-300 bg-green-400 rounded-2xl p-4 text-center font-bold" data-seat="18">Siège 18</div>
-          <div class=" seat19 border border-black-300 bg-green-400 rounded-2xl p-4 text-center font-bold" data-seat="19">Siège 19</div>
-          <div class=" seat20 border border-black-300 bg-green-400 rounded-2xl p-4 text-center font-bold" data-seat="20">Siège 20</div>
+    <div id="contenuCabine" class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <section class="bg-[#D3C0B2] rounded-2xl p-5 shadow-md" aria-labelledby="titrePlan">
+            <h2 id="titrePlan" class="text-2xl font-extrabold mb-3">Plan de la cabine</h2>
+            <ul class="flex flex-wrap gap-4 mb-4 font-semibold">
+                <li><span class="inline-block w-4 h-4 rounded bg-green-400 border"></span> Libre</li>
+                <li><span class="inline-block w-4 h-4 rounded bg-amber-300 border"></span> VIP</li>
+                <li><span class="inline-block w-4 h-4 rounded bg-red-500 border"></span> Occupé</li>
+            </ul>
+            <div id="planBus"></div>
+        </section>
+
+        <div class="flex flex-col gap-4">
+            <section class="bg-white rounded-2xl p-5 shadow-md" aria-labelledby="titreReserver">
+                <h2 id="titreReserver" class="text-xl font-bold mb-3">Réserver</h2>
+                <form id="formReserver" novalidate>
+                    <fieldset id="fieldsetReserver" class="flex flex-col gap-3">
+                        <legend class="sr-only">Réserver une place</legend>
+                        <div>
+                            <label for="nomReserver" class="font-semibold">Nom du passager</label>
+                            <input type="text" id="nomReserver" name="nom" class="border-2 rounded-xl p-3 w-full">
+                            <p id="erreurNomReserver" class="text-red-600 text-sm"></p>
+                        </div>
+                        <div>
+                            <label for="telReserver" class="font-semibold">Téléphone</label>
+                            <input type="tel" id="telReserver" name="tel" placeholder="0612345678" class="border-2 rounded-xl p-3 w-full">
+                            <p id="erreurTelReserver" class="text-red-600 text-sm"></p>
+                        </div>
+                        <div>
+                            <label for="siegeReserver" class="font-semibold">Siège</label>
+                            <select id="siegeReserver" name="siege" class="border-2 rounded-xl p-3 w-full">
+                                <option value="">Premier siège libre</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="bg-[#C35627] text-white font-bold rounded-xl p-3 hover:bg-[#A94720] transition">Réserver</button>
+                    </fieldset>
+                </form>
+                <p id="messageReserver" role="status" class="hidden"></p>
+            </section>
+
+            <section class="bg-white rounded-2xl p-5 shadow-md" aria-labelledby="titreModifier">
+                <h2 id="titreModifier" class="text-xl font-bold mb-3">Modifier</h2>
+                <form id="formModifier" novalidate class="flex flex-col gap-3">
+                    <div>
+                        <label for="passagerModifier" class="font-semibold">Passager</label>
+                        <select id="passagerModifier" name="passager" class="border-2 rounded-xl p-3 w-full">
+                            <option value="">Choisir un passager</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="nomModifier" class="font-semibold">Nom</label>
+                        <input type="text" id="nomModifier" name="nom" class="border-2 rounded-xl p-3 w-full">
+                        <p id="erreurNomModifier" class="text-red-600 text-sm"></p>
+                    </div>
+                    <div>
+                        <label for="telModifier" class="font-semibold">Téléphone</label>
+                        <input type="tel" id="telModifier" name="tel" class="border-2 rounded-xl p-3 w-full">
+                        <p id="erreurTelModifier" class="text-red-600 text-sm"></p>
+                    </div>
+                    <div>
+                        <label for="siegeModifier" class="font-semibold">Siège</label>
+                        <select id="siegeModifier" name="siege" class="border-2 rounded-xl p-3 w-full"></select>
+                    </div>
+                    <button type="submit" class="bg-orange-500 text-white font-bold rounded-xl p-3 hover:bg-orange-600 transition">Modifier</button>
+                </form>
+                <p id="messageModifier" role="status" class="hidden"></p>
+            </section>
+
+            <section class="bg-white rounded-2xl p-5 shadow-md" aria-labelledby="titreAnnuler">
+                <h2 id="titreAnnuler" class="text-xl font-bold mb-3">Annuler</h2>
+                <form id="formAnnuler" class="flex flex-col gap-3">
+                    <div>
+                        <label for="passagerAnnuler" class="font-semibold">Passager</label>
+                        <select id="passagerAnnuler" name="passager" class="border-2 rounded-xl p-3 w-full">
+                            <option value="">Choisir un passager</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="bg-red-600 text-white font-bold rounded-xl p-3 hover:bg-red-700 transition">Annuler la réservation</button>
+                </form>
+                <p id="messageAnnuler" role="status" class="hidden"></p>
+            </section>
+
+            <section class="bg-white rounded-2xl p-5 shadow-md" aria-labelledby="titreAttente">
+                <h2 id="titreAttente" class="text-xl font-bold mb-3">Liste d'attente</h2>
+                <form id="formAttente" novalidate>
+                    <fieldset id="fieldsetAttente" class="flex flex-col gap-3" disabled>
+                        <legend class="sr-only">S'inscrire sur la liste d'attente</legend>
+                        <div>
+                            <label for="nomAttente" class="font-semibold">Nom du passager</label>
+                            <input type="text" id="nomAttente" name="nom" class="border-2 rounded-xl p-3 w-full">
+                            <p id="erreurNomAttente" class="text-red-600 text-sm"></p>
+                        </div>
+                        <div>
+                            <label for="telAttente" class="font-semibold">Téléphone</label>
+                            <input type="tel" id="telAttente" name="tel" placeholder="0612345678" class="border-2 rounded-xl p-3 w-full">
+                            <p id="erreurTelAttente" class="text-red-600 text-sm"></p>
+                        </div>
+                        <button type="submit" class="bg-[#ADCBBA] font-bold rounded-xl p-3 hover:bg-[#CCDCDB] transition">S'inscrire en attente</button>
+                    </fieldset>
+                </form>
+                <ol id="listeAttente" class="mt-3 flex flex-col gap-2"></ol>
+                <p id="messageAttente" role="status" class="hidden"></p>
+            </section>
         </div>
-      </section>
-
-   <div class="space-y-6">
-        <section class="modifier bg-white rounded-xl p-5 border border-gray-200">
-          <h2 class="text-2xl font-bold mb-4">Formulaire de réservation</h2>
-          <form id="Réserver" method="get" method="get" class="flex flex-col gap-4">
-            <div class="flex flex-col gap-2">
-              <label class="font-semibold" for="name">Nom du passager</label>
-              <input class="border-2 rounded-xl p-3 w-full" type="text" id="name" name="name" placeholder="Entrer votre nom" required>
-            </div>
-            <div   class="flex flex-col gap-2">
-              <label id="seatSelect" class="font-semibold" for="seat-number">Choisir une chaise</label>
-              <select class="border-2 rounded-xl p-3 w-full" id="seat-number" name="seat-number">
-                <option value="">Premier siège libre</option>
-                <option value="1">Siège 1</option>
-                <option value="2">Siège 2</option>
-                <option value="3">Siège 3</option>
-                <option value="4">Siège 4</option>
-                <option value="5">Siège 5</option>
-                <option value="6">Siège 6</option>
-                <option value="7">Siège 7</option>
-                <option value="8">Siège 8</option>
-                <option value="9">Siège 9</option>
-                <option value="10">Siège 10</option>
-                <option value="11">Siège 11</option>
-                <option value="12">Siège 12</option>
-                <option value="13">Siège 13</option>
-                <option value="14">Siège 14</option>
-                <option value="15">Siège 15</option>
-                <option value="16">Siège 16</option>
-                <option value="17">Siège 17</option>
-                <option value="18">Siège 18</option>
-                <option value="19">Siège 19</option>
-                <option value="20">Siège 20</option>
-              </select>
-            </div>
-            <button class="bg-blue-600 text-white font-bold rounded-xl p-3 hover:bg-green-700" type="submit">Réserver</button>
-            <div id="message" class=" reuissir  relative 3000 text-center  right-5 text-green-600 font-bold bg-gray-400  rounded-xl "></div>
-          </form>
-        </section>
-      <section
-            id="newSeatSelect" class="bg-white rounded-xl p-5 border border-gray-200">
-          <h2 class="text-2xl font-bold mb-4" >Modifier une réservation</h2>
-          <form id="Modifier" method="get" class="flex flex-col gap-4">
-            <div class="flex flex-col gap-2">
-              <label for="name2" class="font-semibold">Passanger à modifier</label>
-              <select id="name2" name="name2" class="border-2 rounded-xl p-3 w-full">
-                <option value ="">Choisir un passanger</option>
-              </select>
-            </div>
-            <div class="flex flex-col gap-2">
-              <label for="new-name" class="font-semibold">Nouveau nom</label>
-              <input id="new-name" name="new-name" class="border-2 rounded-xl p-3 w-full" type="text" placeholder="Nouveau nom">
-            </div>
-            <div class="flex flex-col gap-2">
-              <label for="new-seat" class="font-semibold">Nouvelle chaise</label>
-              <select id="new-seat" name="new-seat" class="border-2 rounded-xl p-3 w-full">
-                <option value="">Choisir une chaise</option>
-                <option value="1">Siège 1</option>
-                <option value="2">Siège 2</option>
-                <option value="3">Siège 3</option>
-                <option value="4">Siège 4</option>
-                <option value="5">Siège 5</option>
-                <option value="6">Siège 6</option>
-                <option value="7">Siège 7</option>
-                <option value="8">Siège 8</option>
-                <option value="9">Siège 9</option>
-                <option value="10">Siège 10</option>
-                <option value="11">Siège 11</option>
-                <option value="12">Siège 12</option>
-                <option value="13">Siège 13</option>
-                <option value="14">Siège 14</option>
-                <option value="15">Siège 15</option>
-                <option value="16">Siège 16</option>
-                <option value="17">Siège 17</option>
-                <option value="18">Siège 18</option>
-                <option value="19">Siège 19</option>
-                <option value="20">Siège 20</option>
-              </select>
-            </div>
-            <button type="submit" class="bg-orange-500 text-white font-bold rounded-xl p-3 hover:bg-green-700" id="btn-modifier">Modifier</button>
-        
-          </form>
-        </section>
-
-        <section id="canceling" class="bg-white rounded-xl p-5 border border-gray-200">
-          <h2 class="text-2xl font-bold mb-4">Annuler une réservation</h2>
-          <form id="Annuler" method="get" class="flex flex-col gap-4">
-            <label for="passenger-delete" class="font-semibold">Choisir un passager</label>
-            <select id="passenger-delete" name="passenger-delete" class="border-2 rounded-xl p-3 w-full">
-              <option value="">Sélectionner un passager</option>
-            </select>
-            <button type="submit" class="bg-red-600 text-white font-bold rounded-xl p-3 hover:bg-green-700">Annuler la réservation</button>
-          </form>
-        </section>
-      </div>
     </div>
+</main>
 
-  </div>
-</div>
-
-<footer class = "border border-amber-600 w-full h-20 bg-emerald-500 justify-center">
-  <h1 class="font-semibold text-center  ">BusDirect</h1>
-
-</footer>
-  <script src="page.js"></script>
+<script type="module" src="js/main-cabine.js"></script>
 </body>
 </html>

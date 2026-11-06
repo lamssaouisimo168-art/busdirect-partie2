@@ -1,5 +1,5 @@
 import { chargerTrajets } from "./store.js";
-import { estComplet } from "./reservations.js";
+import { estComplet, recetteTrajet } from "./reservations.js";
 import { carteTrajet } from "./render.js";
 
 const listeTrajetsEl = document.getElementById("listeTrajets");
@@ -35,7 +35,7 @@ function filtrerTrajets() {
 
 function afficherStats() {
     const passagers = trajets.reduce((total, trip) => total + trip.reservations.length, 0);
-    const recette = trajets.reduce((total, trip) => total + trip.reservations.length * trip.price, 0);
+    const recette = trajets.reduce((total, trip) => total + recetteTrajet(trip), 0);
 
     statPassagers.textContent = passagers;
     statRecette.textContent = recette;

@@ -1,4 +1,4 @@
-import { placesLibres, estComplet } from "./reservations.js";
+import { placesLibres, estComplet, estVIP, prixSiege } from "./reservations.js";
 
 export function carteTrajet(trip) {
     const { id, departure, destination, departureTime, arrivalTime, price, waitingList } = trip;
@@ -21,4 +21,49 @@ export function carteTrajet(trip) {
             Ouvrir
         </button>
     </article>`;
+}
+
+function echapper(texte) {
+    return String(texte).replace(/[&<>"']/g, (c) =>
+        ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])
+    );
+}
+
+function siegeHTML(trip, numero) {
+    const reservation = trip.reservations.find((r) => r.seat === numero);
+    const num = String(numero).padStart(2, "0");
+    const vip = estVIP(numero);
+    const badgeVIP = vip
+        ? ` <span class="bg-yellow-600 text-white rounded px-1 text-xs">VIP</span>`
+        : "";
+    const base = "rounded-xl border-2 p-2 text-center text-xs sm:text-sm font-bold break-words";
+
+    if (reservation) {
+        return `<div data-seat="${numero}" class="bg-red-500 text-white ${base}">
+            ${num}${badgeVIP}<br>${echapper(reservation.name)}
+        </div>`;
+    }
+
+    const couleur = vip ? "bg-amber-300" : "bg-green-400";
+    return `<div data-seat="${numero}" class="${couleur} ${base}">
+        ${num}${badgeVIP}<br>${prixSiege(trip.price, numero)} DH
+    </div>`;
+}
+
+export function planBus(trip) {
+    const rangs = Math.ceil(trip.capacity / 4);
+    let html = "";
+
+    for (let rang = 0; rang < rangs; rang++) {
+        const base = rang * 4;
+        html += `<div class="grid grid-cols-[1fr_1fr_0.4fr_1fr_1fr] gap-2 mb-2">
+            ${siegeHTML(trip, base + 1)}
+            ${siegeHTML(trip, base + 2)}
+            <div aria-hidden="true"></div>
+            ${siegeHTML(trip, base + 3)}
+            ${siegeHTML(trip, base + 4)}
+        </div>`;
+    }
+
+    return html;
 }
