@@ -22,3 +22,29 @@ export function carteTrajet(trip) {
         </button>
     </article>`;
 }
+
+export function optionsPassagers(trip) {
+    return [...trip.reservations]
+        .sort((a, b) => a.seat - b.seat)
+        .map(
+            (r) =>
+                `<option value="${r.seat}">Siège ${String(r.seat).padStart(2, "0")} — ${echapper(r.name)}</option>`
+        )
+        .join("");
+}
+
+export function listeAttenteHTML(trip) {
+    if (trip.waitingList.length === 0) {
+        return `<li class="text-gray-600">Aucun passager en attente.</li>`;
+    }
+
+    return trip.waitingList
+        .map(
+            (p, index) => `
+        <li class="flex items-center justify-between gap-2 bg-[#CCDCDB] rounded-xl p-3">
+            <span class="font-semibold">${index + 1}. ${echapper(p.name)} — ${echapper(p.phone)}</span>
+            <button type="button" data-index="${index}" class="bg-red-600 text-white font-bold rounded-lg px-3 py-1 hover:bg-red-700 transition">Retirer</button>
+        </li>`
+        )
+        .join("");
+}

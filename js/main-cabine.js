@@ -1,304 +1,234 @@
 import { chargerTrajets, sauvegarder } from "./store.js";
-const result = new URLSearchParams(location.search);
-const id = Number(result.get("id"));
-const nomReservation = document.getElementById("nomReservation");
-const siegeChoisi = document.getElementById("sieges");
-const button = document.querySelector('[type="submit"]');
-const wayTrajet = document.getElementById("wayTrajet");
-const searchBar = document.getElementById("searchBar");
-const regexName = /^[A-Za-zÀ-ÿ]+\s+[A-Za-zÀ-ÿ]+$/;
-const regexEmail = /^[^\s@]+@[^\s@]+\.com$/; 
-const btnReserver = document.getElementById("btnReserver");
-const btnSupprimer = document.getElementById("btnSupprimer");
-const btnModifier = document.getElementById("btnModifier");
-const siegeReservation = document.getElementById("siegeModification");
-const siegeSuppression = document.getElementById("siegeSuppression");
-const siegeModification = document.getElementById("siegeModification");
-let  idSelections = null;
-let timer;
+import {
+    placesLibres,
+    recetteTrajet,
+    estComplet,
+    premierSiegeLibreNonVIP,
+    retirerReservation,
+} from "./reservations.js";
+import { planBus, optionsSieges, optionsPassagers, listeAttenteHTML } from "./render.js";
+import { validerPassager, estValide } from "./validators.js";
 
+const params = new URLSearchParams(location.search);
+const id = Number(params.get("id"));
 
+const infosTrajet = document.getElementById("infosTrajet");
+const planBusEl = document.getElementById("planBus");
+const contenuCabine = document.getElementById("contenuCabine");
 
-let trajet;
-chargerTrajets().then((liste)=>{
-    trajet = liste.find(t=> t.id === id);
+const formReserver = document.getElementById("formReserver");
+const fieldsetReserver = document.getElementById("fieldsetReserver");
+const nomReserver = document.getElementById("nomReserver");
+const telReserver = document.getElementById("telReserver");
+const siegeReserver = document.getElementById("siegeReserver");
+const erreurNomReserver = document.getElementById("erreurNomReserver");
+const erreurTelReserver = document.getElementById("erreurTelReserver");
+const messageReserver = document.getElementById("messageReserver");
 
+const formModifier = document.getElementById("formModifier");
+const passagerModifier = document.getElementById("passagerModifier");
+const nomModifier = document.getElementById("nomModifier");
+const telModifier = document.getElementById("telModifier");
+const siegeModifier = document.getElementById("siegeModifier");
+const erreurNomModifier = document.getElementById("erreurNomModifier");
+const erreurTelModifier = document.getElementById("erreurTelModifier");
+const messageModifier = document.getElementById("messageModifier");
 
-//lier l ID avec l'adresse:
+const formAnnuler = document.getElementById("formAnnuler");
+const passagerAnnuler = document.getElementById("passagerAnnuler");
+const messageAnnuler = document.getElementById("messageAnnuler");
 
-if(trajet === undefined){
-    wayTrajet.innerHTML = "trajet introuvable"
+const formAttente = document.getElementById("formAttente");
+const fieldsetAttente = document.getElementById("fieldsetAttente");
+const nomAttente = document.getElementById("nomAttente");
+const telAttente = document.getElementById("telAttente");
+const erreurNomAttente = document.getElementById("erreurNomAttente");
+const erreurTelAttente = document.getElementById("erreurTelAttente");
+const listeAttenteEl = document.getElementById("listeAttente");
+const messageAttente = document.getElementById("messageAttente");
 
+let trajets = [];
+let trip;
+const minuteurs = {};
 
-   
-}else{
-    wayTrajet.innerHTML = `
-     <div class="bg-[#CCDCDB] p-5 rounded-xl text-center shadow-md">
-    Trajet : ${trajet.id} 
-    <br>Départ : ${trajet.departure}
-    <br>Destination : ${trajet.destination}
-    <br>Heur de départ : ${trajet.departureTime}
-    <br> Prix : ${trajet.price} DH 
-    <br>Capacité : ${trajet.capacity} places
-    </div>`;
-      }
+function afficherMessage(element, texte, type = "succes") {
+    clearTimeout(minuteurs[element.id]);
+    element.textContent = texte;
+    element.className =
+        type === "erreur"
+            ? "mt-3 p-3 rounded-xl bg-red-100 text-red-700 font-bold"
+            : "mt-3 p-3 rounded-xl bg-green-100 text-green-700 font-bold";
 
-    trajet.reservations.forEach((r) => {
-        const siege = document.getElementById(`siege-${r.seat}`);
-
-        if (siege) {
-            siege.classList.remove("bg-[#BAC8B1]");
-            siege.classList.add("bg-red-500");
-            siege.textContent = r.name;
-        }
-    });
-
-});
-
-
-
-
-function afficherMessage(texte, type){
-    message.textContent = texte;
-   message.className = type === "erreur" ? "p-3 rounded-xl bg-red-100 text-red-700 font-bold" : "p-3 rounded-xl bg-green-100 text-green-700 font-bold";
-timer = setTimeout(() => { message.textContent = ""; message.className = "hidden"; }, 3000);
+    minuteurs[element.id] = setTimeout(() => {
+        element.textContent = "";
+        element.className = "hidden";
+    }, 3000);
 }
 
-
-function reserver(){
-    const {name , email} = lireFormulaire();
-    if(!valider(nom , email))return;
-
-    reservation.push({id: Date.now(), nom , email});
-    afficherMessage("Reservation ajouté ")
+function afficherErreurs(elementNom, elementTel, { erreurNom, erreurTel }) {
+    elementNom.textContent = erreurNom;
+    elementTel.textContent = erreurTel;
 }
 
-function modifier(id){
-    const{nom, email,tel} = lireFormulaire();
-    if(!valider(nom, email )) return;
+function afficherListes() {
+    const options = optionsPassagers(trip);
 
+    passagerModifier.innerHTML = `<option value="">Choisir un passager</option>${options}`;
+    passagerAnnuler.innerHTML = `<option value="">Choisir un passager</option>${options}`;
 
-    const r = reservation.find(r=> r.id === id );
-    r.nom = nom;
-    r.email = email;
+    nomModifier.value = "";
+    telModifier.value = "";
+    siegeModifier.innerHTML = `<option value="">Choisir un passager d'abord</option>`;
 
-    afficherMessage("Réservation modifiée")
+    listeAttenteEl.innerHTML = listeAttenteHTML(trip);
 }
 
+function afficherCabine() {
+    const { departure, destination, departureTime, arrivalTime, price } = trip;
 
-function supprimer(id){
-    reservations = reservations.filter(r=> r.id !==id);
-    afficherMessage("Réservation supprimée")
+    infosTrajet.innerHTML = `
+        <p class="text-xl">Trajet N°${String(trip.id).padStart(2, "0")} : ${departure} → ${destination}</p>
+        <p>${departureTime} - ${arrivalTime} | ${price} DH</p>
+        <p>Places libres : ${placesLibres(trip)} | Recette : ${recetteTrajet(trip)} DH</p>`;
+
+    planBusEl.innerHTML = planBus(trip);
+
+    siegeReserver.innerHTML = `<option value="">Premier siège libre</option>${optionsSieges(trip)}`;
+    fieldsetReserver.disabled = estComplet(trip);
+    fieldsetAttente.disabled = !estComplet(trip);
+
+    afficherListes();
 }
 
-btnReserver.addEventListener("click", (e) =>{
-    e.preventDefault();
-    reserver();
-})
-
-btnReserver.addEventListener("click", (e) =>{
-    e.preventDefault();
-    modifier();
-})
-
-
-btnReserver.addEventListener("click", (e) =>{
-    e.preventDefault();
-    supprimer();
-})
-
-
-
-
-
-
-
-const formulaire = document.getElementById("Réserver");
-const nomPassager = document.getElementById("name");
-const seatSelect = document.getElementById("seat-number");
-const message = document.getElementById("message");
-function sauvegarderReservations(){
-    localStorage.setItem("reservations", JSON.stringify(reservations));
-}
-formulaire.addEventListener("submit",function(event){
-event.preventDefault();
-let nom = nomPassager.value.trim();
-let siege = seatSelect.value;
-
-if(nom === ""){
-message.textContent = "Entrer le nom du passager";
-return;
-}
-for(let reservation of reservations){
-if(reservation.nom.toLowerCase() === nom.toLowerCase()){
-message.textContent = "Ce passager est déjà réservé";
-return;
-}
-if(reservation.siege == siege && siege !== ""){
-message.textContent = "Ce siège est déjà réservé";
-return;
-}}
-if(siege === ""){
-siege = 1;
-while(reservations.find(function(reservation){
-return reservation.siege == siege;
-})){
-siege++;
-}}
-
-if(siege > 20){
-message.textContent = "Tous les sièges sont réservés";
-return;
-}
-
-let place = document.querySelector('[data-seat="' + siege + '"]');
-if(!place) return;
-
-reservations.push({nom: nom, siege: Number(siege)}
-);
-sauvegarderReservations();
-
-place.classList.remove("bg-green-400");
-place.classList.add("bg-red-500");
-place.textContent = "Siège " + siege + " " + nom;
-message.textContent = "Réservation réussie";
-setTimeout(function(){
-message.textContent = "";
-},3000);
-afficherPassanger();
-formulaire.reset();
-});
-
-
-
-
-
-
-
-const formModifier = document.getElementById("Modifier");
-const ancienNom = document.getElementById("name2");
-const nouveauNom = document.getElementById("new-name");
-const nouveauSiege = document.getElementById("new-seat");
-
-formModifier.addEventListener("submit",function(event){
-event.preventDefault();
-let trouve = false;
-
-for(let reservation of reservations){
-if(reservation.nom.toLowerCase() === ancienNom.value.trim().toLowerCase()){
-let nom = nouveauNom.value.trim() || reservation.nom;
-let siege = nouveauSiege.value || reservation.siege;
-
-for(let autre of reservations){
-if(autre !== reservation && autre.nom.toLowerCase() === nom.toLowerCase()){
-message.textContent = "Ce nom existe déjà";
-setTimeout(function(){message.textContent = "";},3000);
-return;
-}
-if(autre !== reservation && autre.siege == siege){
-message.textContent = "Ce siège est déjà réservé";
-setTimeout(function(){message.textContent = "";},3000);
-return;
-}
-}
-
-let anciennePlace = document.querySelector('[data-seat="' + reservation.siege + '"]');
-let nouvellePlace = document.querySelector('[data-seat="' + siege + '"]');
-
-anciennePlace.classList.remove("bg-red-500");
-anciennePlace.classList.add("bg-green-400");
-anciennePlace.textContent = "Siège " + reservation.siege;
-
-reservation.nom = nom;
-reservation.siege = Number(siege);
-
-nouvellePlace.classList.remove("bg-green-400");
-nouvellePlace.classList.add("bg-red-500");
-nouvellePlace.textContent = "Siège " + siege + " " + nom;
-
-message.textContent = "Modification réussie";
-setTimeout(function(){message.textContent = "";},3000);
-formModifier.reset();
-trouve = true;
-break;
-}
-}
-
-if(!trouve){
-message.textContent = "Passager introuvable";
-setTimeout(function(){message.textContent = "";},3000);
-}
-});
-
-
-const formAnnuler = document.getElementById("Annuler");
-const passangerAnnuler =document.getElementById("passenger-delete");
-const messageModifier = document.getElementById("message");
-const messageAnnuler = document.getElementById("message");
-
-
-function afficherPassanger(){
-    ancienNom.innerHTML = '<option value ="">choisir un passager</option>';
-    passangerAnnuler.innerHTML = '<option value="">Sélectionner un passager</option>';
-
-    for(let reservation of reservations){
-        let option = document.createElement("option");
-        option.value = reservation.nom;
-        option.textContent = reservation.nom;
-        ancienNom.appendChild(option);
-
-        let option2 = document.createElement("option");
-        option2.value = reservation.nom;
-        option2.textContent = reservation.nom;
-        passangerAnnuler.appendChild(option2); 
-    }
-}
-afficherPassanger()
-
-
-
-formAnnuler.addEventListener("submit",function(event){
+formReserver.addEventListener("submit", (event) => {
     event.preventDefault();
-    let nom= passangerAnnuler.value;
-    let index = reservations.findIndex(function(reservation){
-        return reservation.nom===nom;
-    });
-    if(index ===-1){
-        message.textContent = "choisir un passager";
-        setTimeout(function(){message.textContent="";},3000);
+
+    const nom = nomReserver.value.trim();
+    const tel = telReserver.value.trim();
+
+    const erreurs = validerPassager(nom, tel, trip);
+    afficherErreurs(erreurNomReserver, erreurTelReserver, erreurs);
+    if (!estValide(erreurs)) return;
+
+    const siege = siegeReserver.value !== "" ? Number(siegeReserver.value) : premierSiegeLibreNonVIP(trip);
+
+    trip.reservations = [...trip.reservations, { seat: siege, name: nom, phone: tel }];
+    sauvegarder(trajets);
+
+    formReserver.reset();
+    afficherCabine();
+    afficherMessage(messageReserver, "Réservation confirmée");
+});
+
+passagerModifier.addEventListener("change", () => {
+    const siege = Number(passagerModifier.value);
+    const passager = trip.reservations.find((r) => r.seat === siege);
+
+    if (!passager) {
+        nomModifier.value = "";
+        telModifier.value = "";
+        siegeModifier.innerHTML = `<option value="">Choisir un passager d'abord</option>`;
         return;
     }
-    let siege = reservations[index].siege;
-    reservations.splice(index,1);
-    let place= document.querySelector('[data-seat="' + siege + '"]');
-    place.classList.remove("bg-red-500");
-    place.classList.add("bg-green-400");
-    place.textContent="siège "+ siege;
-    message.textContent = "Ticket supprimé";
-    afficherPassanger();
-    formAnnuler.reset();
-    setTimeout(function(){
-        message.textContent = "";
-    },3000);
+
+    nomModifier.value = passager.name;
+    telModifier.value = passager.phone;
+    siegeModifier.innerHTML = optionsSieges(trip, siege);
+    siegeModifier.value = String(siege);
 });
 
+formModifier.addEventListener("submit", (event) => {
+    event.preventDefault();
 
+    const ancienSiege = Number(passagerModifier.value);
+    if (!trip.reservations.some((r) => r.seat === ancienSiege)) {
+        afficherMessage(messageModifier, "Choisissez un passager à modifier.", "erreur");
+        return;
+    }
 
+    const nom = nomModifier.value.trim();
+    const tel = telModifier.value.trim();
 
+    const erreurs = validerPassager(nom, tel, trip, ancienSiege);
+    afficherErreurs(erreurNomModifier, erreurTelModifier, erreurs);
+    if (!estValide(erreurs)) return;
 
+    const nouveauSiege = Number(siegeModifier.value);
 
+    trip.reservations = trip.reservations.map((r) =>
+        r.seat === ancienSiege ? { ...r, name: nom, phone: tel, seat: nouveauSiege } : r
+    );
+    sauvegarder(trajets);
 
+    afficherCabine();
+    afficherMessage(messageModifier, "Réservation modifiée");
+});
 
+formAnnuler.addEventListener("submit", (event) => {
+    event.preventDefault();
 
+    const siege = Number(passagerAnnuler.value);
+    if (!trip.reservations.some((r) => r.seat === siege)) {
+        afficherMessage(messageAnnuler, "Choisissez un passager à annuler.", "erreur");
+        return;
+    }
 
+    const resultat = retirerReservation(trip, siege);
+    trip.reservations = resultat.reservations;
+    trip.waitingList = resultat.waitingList;
+    sauvegarder(trajets);
 
+    afficherCabine();
 
+    if (resultat.attribue) {
+        const { name, seat } = resultat.attribue;
+        afficherMessage(messageAnnuler, `${name} a obtenu le siège ${String(seat).padStart(2, "0")}`);
+    } else {
+        afficherMessage(messageAnnuler, "Réservation annulée");
+    }
+});
 
+formAttente.addEventListener("submit", (event) => {
+    event.preventDefault();
 
+    const nom = nomAttente.value.trim();
+    const tel = telAttente.value.trim();
 
+    const erreurs = validerPassager(nom, tel, trip);
+    afficherErreurs(erreurNomAttente, erreurTelAttente, erreurs);
+    if (!estValide(erreurs)) return;
 
+    trip.waitingList = [...trip.waitingList, { name: nom, phone: tel }];
+    sauvegarder(trajets);
 
+    formAttente.reset();
+    afficherCabine();
+    afficherMessage(messageAttente, `Ajouté en liste d'attente (position ${trip.waitingList.length})`);
+});
 
+listeAttenteEl.addEventListener("click", (event) => {
+    const bouton = event.target.closest("[data-index]");
+    if (!bouton) return;
 
+    const index = Number(bouton.dataset.index);
+    trip.waitingList = trip.waitingList.filter((_, i) => i !== index);
+    sauvegarder(trajets);
 
+    afficherCabine();
+    afficherMessage(messageAttente, "Passager retiré de la liste d'attente");
+});
 
+async function init() {
+    trajets = await chargerTrajets();
+    trip = trajets.find((t) => t.id === id);
+
+    if (!trip) {
+        infosTrajet.textContent = "Trajet introuvable";
+        contenuCabine.classList.add("hidden");
+        return;
+    }
+
+    afficherCabine();
+}
+
+init();
