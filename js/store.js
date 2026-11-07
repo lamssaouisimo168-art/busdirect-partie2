@@ -13,7 +13,7 @@ export async function chargerTrajets(){
             return trajets;
         }
         catch{
-            console.log("data not downloaded");
+            console.error("Impossible de charger data/trips.json");
             return[];
         }
     }
